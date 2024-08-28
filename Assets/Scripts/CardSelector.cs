@@ -8,8 +8,7 @@ public class CardSelector : MonoBehaviour
     private List<Texture2D> selectedCards = new List<Texture2D>();
     public GameObject cardPrefab;
 
-    public float xPos;
-    public float yPos;
+    public float xPos, yPos;
 
     void Start()
     {
@@ -38,21 +37,34 @@ public class CardSelector : MonoBehaviour
         }
     }
 
+    void InstantiateCard(Texture2D sprite)
+    {
+        GameObject instance = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
+            
+        SpriteRenderer renderer = instance.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.sprite = Sprite.Create(sprite, new Rect(0, 0, sprite.width, sprite.height), new Vector2(1f, 1f));
+        }
+        
+        instance.transform.position = new Vector3(xPos, yPos, 0);
+        xPos += 4f;
+    }
+
     void InstantiateCards()
     {
         foreach (Texture2D sprite in selectedCards)
         {
-            GameObject instance = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
-            
-            SpriteRenderer renderer = instance.GetComponent<SpriteRenderer>();
-            if (renderer != null)
-            {
-                renderer.sprite = Sprite.Create(sprite, new Rect(0, 0, sprite.width, sprite.height), new Vector2(1f, 1f));
-            }
-            
-            instance.transform.position = new Vector3(xPos, yPos, 0);
-            xPos += 4f;
+            InstantiateCard(sprite);
         }
+    }
+
+    public void DrawCardFromDeck() {
+        SelectRandomCards(1);
+
+        Texture2D sprite = selectedCards[0];
+
+        InstantiateCard(sprite);
     }
 
 }
