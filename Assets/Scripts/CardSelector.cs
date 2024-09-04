@@ -6,6 +6,8 @@ public class CardSelector : MonoBehaviour
 {
     public Texture2D[] allCards;
     private List<Texture2D> selectedCards = new List<Texture2D>();
+    public List<Texture2D> playerHand = new List<Texture2D>();
+
     public GameObject cardPrefab;
 
     public float xPos, yPos;
@@ -56,6 +58,7 @@ public class CardSelector : MonoBehaviour
         foreach (Texture2D sprite in selectedCards)
         {
             InstantiateCard(sprite);
+            playerHand.Add(sprite);
         }
     }
 
@@ -65,6 +68,16 @@ public class CardSelector : MonoBehaviour
         Texture2D sprite = selectedCards[0];
 
         InstantiateCard(sprite);
+
+        playerHand.Add(sprite);
+    }
+
+    //Burn random 5 cards
+    public void BurnCards () {
+        for(int i = 0; i < playerHand.Count;i++) {
+            int steve = Random.Range(0, playerHand.Count);
+            playerHand.RemoveAt(steve);
+        }
     }
 
 }
