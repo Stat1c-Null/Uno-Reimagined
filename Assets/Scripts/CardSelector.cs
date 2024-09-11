@@ -9,6 +9,8 @@ public class CardSelector : MonoBehaviour
     public List<Texture2D> playerHand = new List<Texture2D>();
 
     public GameObject cardPrefab;
+    public GameObject cardHolder;
+    private GameObject instance;
 
     public float xPos, yPos;
 
@@ -39,9 +41,13 @@ public class CardSelector : MonoBehaviour
         }
     }
 
-    void InstantiateCard(Texture2D sprite)
+    void InstantiateCard(Texture2D sprite, string spriteName)
     {
-        GameObject instance = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
+        if (cardHolder != null) {
+            instance = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity, cardHolder.transform);
+            instance.name = spriteName;
+        }
+        
             
         SpriteRenderer renderer = instance.GetComponent<SpriteRenderer>();
         if (renderer != null)
@@ -57,7 +63,7 @@ public class CardSelector : MonoBehaviour
     {
         foreach (Texture2D sprite in selectedCards)
         {
-            InstantiateCard(sprite);
+            InstantiateCard(sprite, sprite.name);
             playerHand.Add(sprite);
         }
     }
@@ -67,15 +73,19 @@ public class CardSelector : MonoBehaviour
 
         Texture2D sprite = selectedCards[0];
 
-        InstantiateCard(sprite);
+        InstantiateCard(sprite, sprite.name);
 
         playerHand.Add(sprite);
     }
 
     //Burn random 5 cards
     public void BurnCards () {
-        for(int i = 0; i < playerHand.Count;i++) {
+        for(int i = 0; i < 4;i++) {
             int steve = Random.Range(0, playerHand.Count);
+            
+            Transform cardToDelete = cardHolder.transform.Find(playerHand[steve].name);
+            Destroy(cardToDelete.gameObject);
+
             playerHand.RemoveAt(steve);
         }
     }
