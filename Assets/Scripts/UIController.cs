@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour
         madeMove = false;
         if (madeMove == false && maxCardsPerTurn == 0) {
             GameManager.GetComponent<CardSelector>().BurnCards();
+            maxCardsPerTurn = 3;
         }
     }
 }
