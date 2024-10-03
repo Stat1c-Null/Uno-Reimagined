@@ -11,7 +11,7 @@ public class CardInteraction : MonoBehaviour
     public float floatSpeed; // Speed of floating
     public float floatHeight; // How high the sprite will float
 
-    private Vector3 originalPosition;
+    public Vector3 originalPosition;
 
     void Start()
     {

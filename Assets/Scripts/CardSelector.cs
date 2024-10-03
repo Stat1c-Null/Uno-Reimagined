@@ -7,12 +7,11 @@ public class CardSelector : MonoBehaviour
     public Texture2D[] allCards;
     private List<Texture2D> selectedCards = new List<Texture2D>();
     public List<Texture2D> playerHand = new List<Texture2D>();
-
     public GameObject cardPrefab;
     public GameObject cardHolder;
     private GameObject instance;
 
-    public float xPos, yPos;
+    public float xPos, yPos, spacing;
 
     void Start()
     {
@@ -88,6 +87,18 @@ public class CardSelector : MonoBehaviour
 
             playerHand.RemoveAt(steve);
         }
+
+        RepositionCards();
     }
 
+    public void RepositionCards()
+    {
+        for (int i = 0; i < playerHand.Count; i++)
+        {
+            Transform card = cardHolder.transform.Find(playerHand[i].name);
+            Vector3 newPosition = new Vector3(i * spacing, card.position.y, card.position.z);
+            card.GetComponent<CardInteraction>().originalPosition = newPosition;
+            card.position = newPosition;
+        }
+    }
 }

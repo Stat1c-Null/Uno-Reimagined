@@ -210,6 +210,7 @@ MonoBehaviour:
   cardHolder: {fileID: 1516002996}
   xPos: -10
   yPos: -4
+  spacing: 4
 --- !u!4 &96302034
 Transform:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 490942525679790558}
   - component: {fileID: 8269090171817883809}
   - component: {fileID: -1227558135665991203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: spritePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
