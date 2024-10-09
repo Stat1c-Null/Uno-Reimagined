@@ -11,13 +11,20 @@ public class CardSelector : MonoBehaviour
     public GameObject cardHolder;
     private GameObject instance;
 
+    private Vector3 ogPosition;
+
     public float xPos, yPos, spacing;
+
+    public bool isPlayerTurn = false;
+
 
     void Start()
     {
         SelectRandomCards(7);
 
         InstantiateCards();
+
+        ogPosition = cardHolder.transform.position;
     }
 
     void SelectRandomCards(int count)
@@ -75,6 +82,10 @@ public class CardSelector : MonoBehaviour
         InstantiateCard(sprite, sprite.name);
 
         playerHand.Add(sprite);
+
+        RepositionCards();
+
+        
     }
 
     //Burn random 5 cards
@@ -100,5 +111,7 @@ public class CardSelector : MonoBehaviour
             card.GetComponent<CardInteraction>().originalPosition = newPosition;
             card.position = newPosition;
         }
+
+        cardHolder.transform.position = ogPosition;
     }
 }
