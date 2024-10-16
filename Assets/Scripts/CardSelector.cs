@@ -17,6 +17,8 @@ public class CardSelector : MonoBehaviour
 
     public bool isPlayerTurn = false;
 
+    public string lastPlacedCard;
+
 
     void Start()
     {
@@ -83,9 +85,7 @@ public class CardSelector : MonoBehaviour
 
         playerHand.Add(sprite);
 
-        RepositionCards();
-
-        
+        //RepositionCards();
     }
 
     //Burn random 5 cards
@@ -113,5 +113,15 @@ public class CardSelector : MonoBehaviour
         }
 
         cardHolder.transform.position = ogPosition;
+    }
+
+    public void PlaceCard(string cardName) {
+        lastPlacedCard = cardName;
+        for(int i = 0;  i < playerHand.Count; i++) {
+            if(playerHand[i].name.Equals(cardName)){
+                playerHand.RemoveAt(i);
+                break;
+            }
+        }
     }
 }

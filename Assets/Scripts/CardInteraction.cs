@@ -13,11 +13,15 @@ public class CardInteraction : MonoBehaviour
 
     public Vector3 originalPosition;
     private Vector3 tablePosition;
+    public GameObject table;
+    public GameObject GameManager;
 
     void Start()
     {
         originalPosition = transform.position;
-        tablePosition = GameObject.FindWithTag("Table").transform.position;
+        table = GameObject.FindWithTag("Table");
+        tablePosition = table.transform.position;
+        GameManager = GameObject.FindWithTag("GameManager");
     }
 
     void Update()
@@ -58,6 +62,8 @@ public class CardInteraction : MonoBehaviour
     {
         Debug.Log(gameObject.name);
         placed = true;
-        transform.position = tablePosition + new Vector3(5, 10, 0);
+        transform.position = tablePosition + new Vector3(2, 3, -1);
+        GameManager.GetComponent<CardSelector>().PlaceCard(gameObject.name);
+        gameObject.transform.SetParent(table.transform);
     }
 }

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 96302035}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -212,6 +212,7 @@ MonoBehaviour:
   yPos: -4
   spacing: 4
   isPlayerTurn: 0
+  lastPlacedCard: 
 --- !u!4 &96302034
 Transform:
   m_ObjectHideFlags: 0
@@ -601,7 +602,7 @@ GameObject:
   - component: {fileID: 1221704959}
   m_Layer: 0
   m_Name: CardTable
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
