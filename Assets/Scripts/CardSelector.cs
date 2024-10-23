@@ -5,8 +5,9 @@ using System.IO;
 public class CardSelector : MonoBehaviour
 {
     public Texture2D[] allCards;
-    private List<Texture2D> selectedCards = new List<Texture2D>();
+    public List<Texture2D> selectedCards = new List<Texture2D>();
     public List<Texture2D> playerHand = new List<Texture2D>();
+    public List<Texture2D> aiHand = new List<Texture2D>();
     public GameObject cardPrefab;
     public GameObject cardHolder;
     private GameObject instance;
@@ -15,18 +16,28 @@ public class CardSelector : MonoBehaviour
 
     public float xPos, yPos, spacing;
 
-    public bool isPlayerTurn = false;
+    public bool isPlayerTurn;
+    public bool isAiTurn;
 
     public string lastPlacedCard;
 
 
     void Start()
     {
+        //Select Player Hand
         SelectRandomCards(7);
 
-        InstantiateCards();
+        InstantiateCards(playerHand);
+        //Select AI Hand
+        SelectRandomCards(7);
+
+        InstantiateCards(aiHand);
+
 
         ogPosition = cardHolder.transform.position;
+
+        isPlayerTurn = true;
+        isAiTurn = false;
     }
 
     void SelectRandomCards(int count)
@@ -49,7 +60,7 @@ public class CardSelector : MonoBehaviour
         }
     }
 
-    void InstantiateCard(Texture2D sprite, string spriteName)
+    void InstantiateCard(Texture2D sprite, string spriteName)//TODO : Fix this function
     {
         if (cardHolder != null) {
             instance = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity, cardHolder.transform);
@@ -67,12 +78,13 @@ public class CardSelector : MonoBehaviour
         xPos += 4f;
     }
 
-    void InstantiateCards()
+    void InstantiateCards(List<Texture2D> cardList)
+
     {
         foreach (Texture2D sprite in selectedCards)
         {
             InstantiateCard(sprite, sprite.name);
-            playerHand.Add(sprite);
+            cardList.Add(sprite);
         }
     }
 
@@ -123,5 +135,6 @@ public class CardSelector : MonoBehaviour
                 break;
             }
         }
+        isPlayerTurn = false;
     }
 }

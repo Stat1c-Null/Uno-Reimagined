@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CardInteraction : MonoBehaviour
 {
 
-    private bool isHovered = false, placed = false;
+    private bool isHovered = false, playerMove= false;
     public float floatSpeed; // Speed of floating
     public float floatHeight; // How high the sprite will float
 
@@ -26,7 +26,8 @@ public class CardInteraction : MonoBehaviour
 
     void Update()
     {
-        if (isHovered && !placed)
+        playerMove = GameManager.GetComponent<CardSelector>().isPlayerTurn;
+        if (isHovered && playerMove)
         {
             // Make the sprite float up and down
             float newY = originalPosition.y + Mathf.Sin(Time.time * floatSpeed) * floatHeight;
@@ -49,7 +50,7 @@ public class CardInteraction : MonoBehaviour
     {
         isHovered = false;
         // Reset the position to original when not hovered
-        if(placed == false) {
+        if(playerMove == true) {
             transform.position = originalPosition;
         }   
     }
@@ -60,10 +61,12 @@ public class CardInteraction : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        Debug.Log(gameObject.name);
-        placed = true;
-        transform.position = tablePosition + new Vector3(2, 3, -1);
-        GameManager.GetComponent<CardSelector>().PlaceCard(gameObject.name);
-        gameObject.transform.SetParent(table.transform);
+        if(playerMove) {
+            Debug.Log(gameObject.name);
+            transform.position = tablePosition + new Vector3(2, 3, -1);
+            GameManager.GetComponent<CardSelector>().PlaceCard(gameObject.name);
+            gameObject.transform.SetParent(table.transform);
+        }
+        
     }
 }

@@ -6,7 +6,7 @@ public class UIController : MonoBehaviour
 {
     public GameObject GameManager;
     public int maxCardsPerTurn;
-    public bool madeMove;
+    public bool skipMove;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,10 +28,12 @@ public class UIController : MonoBehaviour
     }
 
     public void EndTurn() {
-        madeMove = false;
-        if (madeMove == false && maxCardsPerTurn == 0) {
+        skipMove = GameManager.GetComponent<CardSelector>().isPlayerTurn;
+        if (skipMove == true && maxCardsPerTurn == 0) {
             GameManager.GetComponent<CardSelector>().BurnCards();
             maxCardsPerTurn = 3;
+        }else if (skipMove == false) { 
+            GameManager.GetComponent<CardSelector>().isAiTurn = true;
         }
     }
 }
