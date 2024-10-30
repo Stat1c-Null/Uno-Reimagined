@@ -21,7 +21,7 @@ public class UIController : MonoBehaviour
     }
 
     public void DrawCard(){
-        if(maxCardsPerTurn > 0) {
+        if(GameManager.GetComponent<CardSelector>().isPlayerTurn && maxCardsPerTurn > 0) {
             GameManager.GetComponent<CardSelector>().DrawCardFromDeck();
             maxCardsPerTurn -= 1;
         }
@@ -32,8 +32,10 @@ public class UIController : MonoBehaviour
         if (skipMove == true && maxCardsPerTurn == 0) {
             GameManager.GetComponent<CardSelector>().BurnCards();
             maxCardsPerTurn = 3;
+            GameManager.GetComponent<CardSelector>().isPlayerTurn = false;
         }else if (skipMove == false) { 
             GameManager.GetComponent<CardSelector>().isAiTurn = true;
+            GameManager.GetComponent<CardSelector>().isPlayerTurn = false;
         }
     }
 }

@@ -21,17 +21,17 @@ public class CardSelector : MonoBehaviour
 
     public string lastPlacedCard;
 
-
+    //Basically GameManager script
     void Start()
     {
         //Select Player Hand
         SelectRandomCards(7);
 
-        InstantiateCards(playerHand);
+        InstantiateCards(playerHand, true);
         //Select AI Hand
         SelectRandomCards(7);
 
-        InstantiateCards(aiHand);
+        InstantiateCards(aiHand, false);
 
 
         ogPosition = cardHolder.transform.position;
@@ -78,12 +78,15 @@ public class CardSelector : MonoBehaviour
         xPos += 4f;
     }
 
-    void InstantiateCards(List<Texture2D> cardList)
+    void InstantiateCards(List<Texture2D> cardList, bool showCardsOnScreen)
 
     {
         foreach (Texture2D sprite in selectedCards)
         {
-            InstantiateCard(sprite, sprite.name);
+            if(showCardsOnScreen) {
+                InstantiateCard(sprite, sprite.name);
+            }
+            
             cardList.Add(sprite);
         }
     }
