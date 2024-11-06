@@ -205,13 +205,16 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 1b529fd97b5b4a347bea148b66a90016, type: 3}
   - {fileID: 2800000, guid: 2963510397b99044b94c0d6689ad3461, type: 3}
   - {fileID: 2800000, guid: ee92ac75db2cc2a45977b454d098e17b, type: 3}
+  selectedCards: []
   playerHand: []
+  aiHand: []
   cardPrefab: {fileID: 6491361405750576160, guid: d36a06e1f8240c547bd3be18a7b3bc13, type: 3}
   cardHolder: {fileID: 1516002996}
   xPos: -10
   yPos: -4
   spacing: 4
   isPlayerTurn: 0
+  isAiTurn: 0
   lastPlacedCard: 
 --- !u!4 &96302034
 Transform:
@@ -242,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   maxCardsPerTurn: 0
-  madeMove: 0
+  skipMove: 0
 --- !u!1 &162460639
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 96302032}
   maxCardsPerTurn: 3
-  madeMove: 0
+  skipMove: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +588,51 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &558513047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 558513049}
+  - component: {fileID: 558513048}
+  m_Layer: 0
+  m_Name: AIOponnent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &558513048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558513047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16293791789b279489b33bac407f64c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameManager: {fileID: 96302032}
+--- !u!4 &558513049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558513047}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.6726649, y: 0.73700476, z: -4.8187575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1185,3 +1233,4 @@ SceneRoots:
   - {fileID: 1653346712}
   - {fileID: 1516002997}
   - {fileID: 1221704960}
+  - {fileID: 558513049}
