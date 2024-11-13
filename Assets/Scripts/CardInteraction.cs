@@ -13,7 +13,7 @@ public class CardInteraction : MonoBehaviour
 
     public Vector3 originalPosition;
     private Vector3 tablePosition;
-    public GameObject table;
+    private GameObject table;
     public GameObject GameManager;
 
     void Start()
@@ -61,10 +61,10 @@ public class CardInteraction : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
+        
         if(playerMove) {
-            Debug.Log(gameObject.name);
             transform.position = tablePosition + new Vector3(2, 3, -1);
-            GameManager.GetComponent<CardSelector>().PlaceCard(gameObject.name);
+            GameManager.GetComponent<CardSelector>().PlaceCard(gameObject.name, GameManager.GetComponent<CardSelector>().playerHand);
             gameObject.transform.SetParent(table.transform);
         }
         

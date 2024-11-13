@@ -130,11 +130,11 @@ public class CardSelector : MonoBehaviour
         cardHolder.transform.position = ogPosition;
     }
 
-    public void PlaceCard(string cardName) {
+    public void PlaceCard(string cardName, List<Texture2D> cardList) {
         lastPlacedCard = cardName;
-        for(int i = 0;  i < playerHand.Count; i++) {
-            if(playerHand[i].name.Equals(cardName)){
-                playerHand.RemoveAt(i);
+        for(int i = 0;  i < cardList.Count; i++) {
+            if(cardList[i].name.Equals(cardName)){
+                cardList.RemoveAt(i);
                 break;
             }
         }
