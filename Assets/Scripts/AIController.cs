@@ -40,7 +40,19 @@ public class AIController : MonoBehaviour
                     //If it has number, check for higher number then the one on the table
                     if(cardColor == lastPlacedColor && cardNumber > lastPlacedNumber) {
                         Debug.Log(card.name);
+                        GameManager.GetComponent<CardSelector>().PlaceCard(card.name, aiHand);//Place ai card on table
                         GameManager.GetComponent<CardSelector>().isAiTurn = false;
+                        GameManager.GetComponent<CardSelector>().isPlayerTurn = true;
+                        //Create ai card on the screen
+                        GameObject aiCard = GameManager.GetComponent<CardSelector>().InstantiateCard(card, card.name);
+                        aiCard.transform.position = tablePosition + new Vector3(2, 3, -1);
+                        //Destroy previous cards on the table
+                        foreach (Transform child in table.transform)
+                        {
+                            Destroy(child.gameObject);
+                        }
+                        aiCard.transform.SetParent(table.transform);
+                        break;
                     } else { 
                         Debug.Log("I dont have a card");
                     }

@@ -65,6 +65,11 @@ public class CardInteraction : MonoBehaviour
         if(playerMove) {
             transform.position = tablePosition + new Vector3(2, 3, -1);
             GameManager.GetComponent<CardSelector>().PlaceCard(gameObject.name, GameManager.GetComponent<CardSelector>().playerHand);
+            GameManager.GetComponent<CardSelector>().isPlayerTurn = false;
+            foreach (Transform child in table.transform)
+            {
+                Destroy(child.gameObject);
+            }
             gameObject.transform.SetParent(table.transform);
         }
         

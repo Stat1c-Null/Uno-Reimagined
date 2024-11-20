@@ -60,7 +60,7 @@ public class CardSelector : MonoBehaviour
         }
     }
 
-    void InstantiateCard(Texture2D sprite, string spriteName)//TODO : Fix this function
+    public GameObject InstantiateCard(Texture2D sprite, string spriteName)//TODO : Fix this function
     {
         if (cardHolder != null) {
             instance = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity, cardHolder.transform);
@@ -76,6 +76,8 @@ public class CardSelector : MonoBehaviour
         
         instance.transform.position = new Vector3(xPos, yPos, 0);
         xPos += 4f;
+
+        return instance;
     }
 
     void InstantiateCards(List<Texture2D> cardList, bool showCardsOnScreen)
@@ -138,6 +140,5 @@ public class CardSelector : MonoBehaviour
                 break;
             }
         }
-        isPlayerTurn = false;
     }
 }
