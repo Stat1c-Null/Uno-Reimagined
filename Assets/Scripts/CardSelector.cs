@@ -21,6 +21,8 @@ public class CardSelector : MonoBehaviour
 
     public string lastPlacedCard;
 
+    public string currentColor;
+
     //Basically GameManager script
     void Start()
     {
@@ -38,6 +40,7 @@ public class CardSelector : MonoBehaviour
 
         isPlayerTurn = true;
         isAiTurn = false;
+        currentColor = string.Empty;
     }
 
     void SelectRandomCards(int count)
@@ -140,5 +143,8 @@ public class CardSelector : MonoBehaviour
                 break;
             }
         }
+        string[] extractCard = cardName.Split('_');
+        string cardColor = extractCard[0];
+        currentColor = cardColor;
     }
 }

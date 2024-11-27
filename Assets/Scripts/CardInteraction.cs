@@ -15,6 +15,7 @@ public class CardInteraction : MonoBehaviour
     private Vector3 tablePosition;
     private GameObject table;
     public GameObject GameManager;
+    private string cardColor;
 
     void Start()
     {
@@ -22,6 +23,8 @@ public class CardInteraction : MonoBehaviour
         table = GameObject.FindWithTag("Table");
         tablePosition = table.transform.position;
         GameManager = GameObject.FindWithTag("GameManager");
+        string[] extractCard = gameObject.name.Split('_');
+        cardColor = extractCard[0];
     }
 
     void Update()
@@ -62,7 +65,7 @@ public class CardInteraction : MonoBehaviour
     void OnMouseDown()
     {
         
-        if(playerMove) {
+        if(playerMove && cardColor == GameManager.GetComponent<CardSelector>().currentColor) {
             transform.position = tablePosition + new Vector3(2, 3, -1);
             GameManager.GetComponent<CardSelector>().PlaceCard(gameObject.name, GameManager.GetComponent<CardSelector>().playerHand);
             GameManager.GetComponent<CardSelector>().isPlayerTurn = false;
