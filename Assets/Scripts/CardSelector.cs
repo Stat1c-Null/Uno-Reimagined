@@ -23,6 +23,7 @@ public class CardSelector : MonoBehaviour
 
     public string currentColor;
 
+    public bool isFirstMove;
     //Basically GameManager script
     void Start()
     {
@@ -41,6 +42,7 @@ public class CardSelector : MonoBehaviour
         isPlayerTurn = true;
         isAiTurn = false;
         currentColor = string.Empty;
+        isFirstMove = true;
     }
 
     void SelectRandomCards(int count)
@@ -146,5 +148,6 @@ public class CardSelector : MonoBehaviour
         string[] extractCard = cardName.Split('_');
         string cardColor = extractCard[0];
         currentColor = cardColor;
+        isFirstMove = false;
     }
 }

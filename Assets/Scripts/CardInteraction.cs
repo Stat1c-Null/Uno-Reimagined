@@ -16,6 +16,7 @@ public class CardInteraction : MonoBehaviour
     private GameObject table;
     public GameObject GameManager;
     private string cardColor;
+    private CardSelector cardSelector;
 
     void Start()
     {
@@ -25,11 +26,12 @@ public class CardInteraction : MonoBehaviour
         GameManager = GameObject.FindWithTag("GameManager");
         string[] extractCard = gameObject.name.Split('_');
         cardColor = extractCard[0];
+        cardSelector = GameManager.GetComponent<CardSelector>();
     }
 
     void Update()
     {
-        playerMove = GameManager.GetComponent<CardSelector>().isPlayerTurn;
+        playerMove = cardSelector.isPlayerTurn;
         if (isHovered && playerMove)
         {
             // Make the sprite float up and down
@@ -64,11 +66,10 @@ public class CardInteraction : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        
-        if(playerMove && cardColor == GameManager.GetComponent<CardSelector>().currentColor) {
+        if(playerMove && (cardSelector.isFirstMove == true || cardColor == cardSelector.currentColor)) {
             transform.position = tablePosition + new Vector3(2, 3, -1);
-            GameManager.GetComponent<CardSelector>().PlaceCard(gameObject.name, GameManager.GetComponent<CardSelector>().playerHand);
-            GameManager.GetComponent<CardSelector>().isPlayerTurn = false;
+            cardSelector.PlaceCard(gameObject.name, cardSelector.playerHand);
+            cardSelector.isPlayerTurn = false;
             foreach (Transform child in table.transform)
             {
                 Destroy(child.gameObject);

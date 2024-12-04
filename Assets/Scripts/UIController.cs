@@ -7,10 +7,11 @@ public class UIController : MonoBehaviour
     public GameObject GameManager;
     public int maxCardsPerTurn;
     public bool skipMove;
+    private CardSelector cardSelector;
     // Start is called before the first frame update
     void Start()
     {
-        
+        cardSelector = GameManager.GetComponent<CardSelector>();
     }
 
     // Update is called once per frame
@@ -21,21 +22,21 @@ public class UIController : MonoBehaviour
     }
 
     public void DrawCard(){
-        if(GameManager.GetComponent<CardSelector>().isPlayerTurn && maxCardsPerTurn > 0) {
-            GameManager.GetComponent<CardSelector>().DrawCardFromDeck();
+        if(cardSelector.isPlayerTurn && maxCardsPerTurn > 0) {
+            cardSelector.DrawCardFromDeck();
             maxCardsPerTurn -= 1;
         }
     }
 
     public void EndTurn() {
-        skipMove = GameManager.GetComponent<CardSelector>().isPlayerTurn;
+        skipMove = cardSelector.isPlayerTurn;
         if (skipMove == true && maxCardsPerTurn == 0) {
-            GameManager.GetComponent<CardSelector>().BurnCards();
+            cardSelector.BurnCards();
             maxCardsPerTurn = 3;
-            GameManager.GetComponent<CardSelector>().isPlayerTurn = false;
+            cardSelector.isPlayerTurn = false;
         }else if (skipMove == false) { 
-            GameManager.GetComponent<CardSelector>().isAiTurn = true;
-            GameManager.GetComponent<CardSelector>().isPlayerTurn = false;
+            cardSelector.isAiTurn = true;
+            cardSelector.isPlayerTurn = false;
         }
     }
 }
