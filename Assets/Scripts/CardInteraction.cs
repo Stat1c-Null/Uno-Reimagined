@@ -17,6 +17,7 @@ public class CardInteraction : MonoBehaviour
     public GameObject GameManager;
     private string cardColor;
     private CardSelector cardSelector;
+    private string cardNumber;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class CardInteraction : MonoBehaviour
         GameManager = GameObject.FindWithTag("GameManager");
         string[] extractCard = gameObject.name.Split('_');
         cardColor = extractCard[0];
+        cardNumber = extractCard[1];
         cardSelector = GameManager.GetComponent<CardSelector>();
     }
 
@@ -66,16 +68,27 @@ public class CardInteraction : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        if(playerMove && (cardSelector.isFirstMove == true || cardColor == cardSelector.currentColor)) {
-            transform.position = tablePosition + new Vector3(2, 3, -1);
-            cardSelector.PlaceCard(gameObject.name, cardSelector.playerHand);
-            cardSelector.isPlayerTurn = false;
-            foreach (Transform child in table.transform)
-            {
-                Destroy(child.gameObject);
+        if(playerMove) {
+            if(cardNumber == "picker" && (cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber)){
+                ChooseCard();
+                cardSelector.SelectRandomCards(2);
+                cardSelector.InstantiateCards(cardSelector.aiHand, false);
             }
-            gameObject.transform.SetParent(table.transform);
+            else if(cardSelector.isFirstMove == true || cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber) {
+                ChooseCard();
+            }
         }
-        
+    }
+
+    private void ChooseCard()
+    {
+        transform.position = tablePosition + new Vector3(2, 3, -1);
+        cardSelector.PlaceCard(gameObject.name, cardSelector.playerHand);
+        cardSelector.isPlayerTurn = false;
+        foreach (Transform child in table.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        gameObject.transform.SetParent(table.transform);
     }
 }

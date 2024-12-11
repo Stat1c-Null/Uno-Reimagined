@@ -16,14 +16,14 @@ public class CardSelector : MonoBehaviour
 
     public float xPos, yPos, spacing;
 
-    public bool isPlayerTurn;
-    public bool isAiTurn;
+    public bool isPlayerTurn, isAiTurn;
 
     public string lastPlacedCard;
 
     public string currentColor;
 
     public bool isFirstMove;
+    public string lastCardNumber;
     //Basically GameManager script
     void Start()
     {
@@ -45,7 +45,7 @@ public class CardSelector : MonoBehaviour
         isFirstMove = true;
     }
 
-    void SelectRandomCards(int count)
+    public void SelectRandomCards(int count)
     {
 
         selectedCards.Clear();
@@ -85,7 +85,7 @@ public class CardSelector : MonoBehaviour
         return instance;
     }
 
-    void InstantiateCards(List<Texture2D> cardList, bool showCardsOnScreen)
+    public void InstantiateCards(List<Texture2D> cardList, bool showCardsOnScreen)
 
     {
         foreach (Texture2D sprite in selectedCards)
@@ -148,6 +148,7 @@ public class CardSelector : MonoBehaviour
         string[] extractCard = cardName.Split('_');
         string cardColor = extractCard[0];
         currentColor = cardColor;
+        lastCardNumber = extractCard[1];
         isFirstMove = false;
     }
 }
