@@ -69,7 +69,8 @@ public class CardInteraction : MonoBehaviour
     void OnMouseDown()
     {
         if(playerMove) {
-            if(cardNumber == "picker" && (cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber)){
+            //check for picker card
+            if((cardNumber == "picker" && (cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber)) || (cardNumber == "picker" && cardSelector.isFirstMove == true)){
                 ChooseCard();
                 cardSelector.SelectRandomCards(2);
                 cardSelector.InstantiateCards(cardSelector.aiHand, false);

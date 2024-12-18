@@ -40,25 +40,22 @@ public class AIController : MonoBehaviour
 
                     //If it has number, check for higher number then the one on the table
                     if(cardColor == lastPlacedColor && cardNumber > lastPlacedNumber) {
-                        Debug.Log(card.name);
-                        cardSelector.PlaceCard(card.name, aiHand);//Place ai card on table
-                        cardSelector.isAiTurn = false;
-                        cardSelector.isPlayerTurn = true;
-                        //Create ai card on the screen
-                        GameObject aiCard = cardSelector.InstantiateCard(card, card.name);
-                        aiCard.transform.position = tablePosition + new Vector3(2, 3, -1);
-                        //Destroy previous cards on the table
-                        foreach (Transform child in table.transform)
-                        {
-                            Destroy(child.gameObject);
-                        }
-                        aiCard.transform.SetParent(table.transform);
+                        placeCardOnTable(card);
                         break;
-                    } else { 
-                        Debug.Log("I dont have a card");
                     }
+                    else if(cardNumber == lastPlacedNumber && cardColor != lastPlacedColor) {
+                        placeCardOnTable(card);
+                        break;
+                    } /*else if(lastPlacedNumber == "picker" && lastPlacedColor == cardColor) {
+                        placeCardOnTable(card);
+                        break;
+                    }*/
+                    else { 
+                        Debug.Log("I dont have a card");
+                    } 
 
-                } else {
+                } 
+                else {
                     Debug.Log("This is not an integer");
                 }
 
@@ -66,5 +63,20 @@ public class AIController : MonoBehaviour
                 
             }
         }
+    }
+
+    public void placeCardOnTable(Texture2D card) {
+        cardSelector.PlaceCard(card.name, aiHand);//Place ai card on table
+        cardSelector.isAiTurn = false;
+        cardSelector.isPlayerTurn = true;
+        //Create ai card on the screen
+        GameObject aiCard = cardSelector.InstantiateCard(card, card.name);
+        aiCard.transform.position = tablePosition + new Vector3(2, 3, -1);
+        //Destroy previous cards on the table
+        foreach (Transform child in table.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        aiCard.transform.SetParent(table.transform);
     }
 }
