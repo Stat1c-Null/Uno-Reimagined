@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AIController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class AIController : MonoBehaviour
     public GameObject GameManager;
     private List<Texture2D> aiHand = new List<Texture2D>();
     private string lastPlacedCard;
+    private string lastPlacedSuperCard;
     private string lastPlacedColor;
     private int lastPlacedNumber;
     private Vector3 tablePosition;
@@ -29,7 +31,12 @@ public class AIController : MonoBehaviour
             lastPlacedCard = cardSelector.lastPlacedCard;
             string[] extract = lastPlacedCard.Split('_');
             lastPlacedColor = extract[0];
-            lastPlacedNumber = int.Parse(extract[1]);
+            try {
+                lastPlacedNumber = int.Parse(extract[1]);
+            } catch (Exception ex) { //In case second word in card name is a string
+                lastPlacedSuperCard = extract[1];
+            }
+            
 
             foreach(Texture2D card in aiHand) {
                 string[] extractCard = card.name.Split('_');
@@ -37,7 +44,6 @@ public class AIController : MonoBehaviour
 
                 // Check if card has number in it
                 if(int.TryParse(extractCard[1], out int cardNumber)) {
-
                     //If it has number, check for higher number then the one on the table
                     if(cardColor == lastPlacedColor && cardNumber > lastPlacedNumber) {
                         placeCardOnTable(card);
@@ -46,12 +52,14 @@ public class AIController : MonoBehaviour
                     else if(cardNumber == lastPlacedNumber && cardColor != lastPlacedColor) {
                         placeCardOnTable(card);
                         break;
-                    } /*else if(lastPlacedNumber == "picker" && lastPlacedColor == cardColor) {
+                    } 
+                    else if(lastPlacedSuperCard == "picker" && lastPlacedColor == cardColor) {
                         placeCardOnTable(card);
                         break;
-                    }*/
+                    }
                     else { 
                         Debug.Log("I dont have a card");
+                        cardSelector.DrawCardFromDeck(cardSelector.aiHand);
                     } 
 
                 } 

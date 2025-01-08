@@ -23,7 +23,7 @@ public class UIController : MonoBehaviour
 
     public void DrawCard(){
         if(cardSelector.isPlayerTurn && maxCardsPerTurn > 0) {
-            cardSelector.DrawCardFromDeck();
+            cardSelector.DrawCardFromDeck(cardSelector.playerHand);
             maxCardsPerTurn -= 1;
         }
     }

@@ -98,14 +98,14 @@ public class CardSelector : MonoBehaviour
         }
     }
 
-    public void DrawCardFromDeck() {
+    public void DrawCardFromDeck(List<Texture2D> hand) {
         SelectRandomCards(1);
 
         Texture2D sprite = selectedCards[0];
 
         InstantiateCard(sprite, sprite.name);
 
-        playerHand.Add(sprite);
+        hand.Add(sprite);
 
         //RepositionCards();
     }
