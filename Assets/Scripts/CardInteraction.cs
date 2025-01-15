@@ -91,5 +91,15 @@ public class CardInteraction : MonoBehaviour
             Destroy(child.gameObject);
         }
         gameObject.transform.SetParent(table.transform);
+        //TODO: Rework this logic for multiple players
+        if(cardNumber == "skip") {
+            cardSelector.isPlayerTurn = true;
+            cardSelector.isAiTurn = false;
+        }
+        //TODO: Rework this logic for multiple players
+        else if(cardNumber == "reverse") {
+            cardSelector.isPlayerTurn = true;
+            cardSelector.isAiTurn = false;
+        }
     }
 }

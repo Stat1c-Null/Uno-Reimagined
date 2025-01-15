@@ -57,14 +57,27 @@ public class AIController : MonoBehaviour
                         placeCardOnTable(card);
                         break;
                     }
+                    /*//TODO: Rework this logic for multiple players
+                    else if(lastPlacedSuperCard == "skip") {
+                        cardSelector.isPlayerTurn = true;
+                        cardSelector.isAiTurn = false;
+                        break;
+                    }
+                    //TODO: Rework this logic for multiple players
+                    else if(lastPlacedSuperCard == "reverse") {
+                        cardSelector.isPlayerTurn = true;
+                        cardSelector.isAiTurn = false;
+                        break;
+                    }*/
                     else { 
                         Debug.Log("I dont have a card");
-                        cardSelector.DrawCardFromDeck(cardSelector.aiHand);
+                        //cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
                     } 
 
                 } 
                 else {
                     Debug.Log("This is not an integer");
+                    
                 }
 
                 //int cardNumber = int.Parse(extractCard[1]);
