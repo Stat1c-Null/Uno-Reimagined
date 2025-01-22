@@ -27,6 +27,9 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(cardSelector.isPlayerTurn) {
+            lastPlacedSuperCard = "";
+        }
         if(cardSelector.isAiTurn) {
             lastPlacedCard = cardSelector.lastPlacedCard;
             string[] extract = lastPlacedCard.Split('_');
@@ -36,53 +39,47 @@ public class AIController : MonoBehaviour
             } catch (Exception ex) { //In case second word in card name is a string
                 lastPlacedSuperCard = extract[1];
             }
-            
+            //TODO: Rework this logic for multiple players
+            if(lastPlacedSuperCard == "skip" || lastPlacedSuperCard == "reverse") {
+                cardSelector.isPlayerTurn = true;
+                cardSelector.isAiTurn = false;
+            } else {
+                foreach(Texture2D card in aiHand) {
+                    string[] extractCard = card.name.Split('_');
+                    string cardColor = extractCard[0];
 
-            foreach(Texture2D card in aiHand) {
-                string[] extractCard = card.name.Split('_');
-                string cardColor = extractCard[0];
+                    // Check if card has number in it
+                    if(int.TryParse(extractCard[1], out int cardNumber)) {
+                        //If it has number, check for higher number then the one on the table
+                        if(cardColor == lastPlacedColor && cardNumber > lastPlacedNumber) {
+                            placeCardOnTable(card);
+                            break;
+                        }
+                        else if(cardNumber == lastPlacedNumber && cardColor != lastPlacedColor) {
+                            placeCardOnTable(card);
+                            break;
+                        } 
+                        else if(lastPlacedSuperCard == "picker" && lastPlacedColor == cardColor) {
+                            placeCardOnTable(card);
+                            break;
+                        }
+                        else { 
+                            Debug.Log("I dont have a card");
+                            //cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
+                        } 
 
-                // Check if card has number in it
-                if(int.TryParse(extractCard[1], out int cardNumber)) {
-                    //If it has number, check for higher number then the one on the table
-                    if(cardColor == lastPlacedColor && cardNumber > lastPlacedNumber) {
-                        placeCardOnTable(card);
-                        break;
-                    }
-                    else if(cardNumber == lastPlacedNumber && cardColor != lastPlacedColor) {
-                        placeCardOnTable(card);
-                        break;
                     } 
-                    else if(lastPlacedSuperCard == "picker" && lastPlacedColor == cardColor) {
-                        placeCardOnTable(card);
-                        break;
+                    else {
+                        Debug.Log("This is not an integer");
+                        
                     }
-                    /*//TODO: Rework this logic for multiple players
-                    else if(lastPlacedSuperCard == "skip") {
-                        cardSelector.isPlayerTurn = true;
-                        cardSelector.isAiTurn = false;
-                        break;
-                    }
-                    //TODO: Rework this logic for multiple players
-                    else if(lastPlacedSuperCard == "reverse") {
-                        cardSelector.isPlayerTurn = true;
-                        cardSelector.isAiTurn = false;
-                        break;
-                    }*/
-                    else { 
-                        Debug.Log("I dont have a card");
-                        //cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
-                    } 
 
-                } 
-                else {
-                    Debug.Log("This is not an integer");
+                    //int cardNumber = int.Parse(extractCard[1]);
                     
                 }
-
-                //int cardNumber = int.Parse(extractCard[1]);
-                
             }
+
+            
         }
     }
 

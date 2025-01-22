@@ -47,7 +47,10 @@ public class CardInteraction : MonoBehaviour
     /// </summary>
     void OnMouseEnter()
     {
-        isHovered = true;
+        if(transform.parent.name != "CardTable"){
+            isHovered = true;
+        }
+        
     }
 
     /// <summary>
@@ -57,7 +60,7 @@ public class CardInteraction : MonoBehaviour
     {
         isHovered = false;
         // Reset the position to original when not hovered
-        if(playerMove == true) {
+        if(playerMove == true && transform.parent.name != "CardTable") {
             transform.position = originalPosition;
         }   
     }
@@ -68,7 +71,7 @@ public class CardInteraction : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        if(playerMove) {
+        if(playerMove && transform.parent.name != "CardTable") {
             //check for picker card
             if((cardNumber == "picker" && (cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber)) || (cardNumber == "picker" && cardSelector.isFirstMove == true)){
                 ChooseCard();
@@ -91,15 +94,6 @@ public class CardInteraction : MonoBehaviour
             Destroy(child.gameObject);
         }
         gameObject.transform.SetParent(table.transform);
-        //TODO: Rework this logic for multiple players
-        if(cardNumber == "skip") {
-            cardSelector.isPlayerTurn = true;
-            cardSelector.isAiTurn = false;
-        }
-        //TODO: Rework this logic for multiple players
-        else if(cardNumber == "reverse") {
-            cardSelector.isPlayerTurn = true;
-            cardSelector.isAiTurn = false;
-        }
+        
     }
 }
