@@ -18,6 +18,7 @@ public class CardInteraction : MonoBehaviour
     private string cardColor;
     private CardSelector cardSelector;
     private string cardNumber;
+    private GameObject UICanvas;
 
     void Start()
     {
@@ -29,6 +30,7 @@ public class CardInteraction : MonoBehaviour
         cardColor = extractCard[0];
         cardNumber = extractCard[1];
         cardSelector = GameManager.GetComponent<CardSelector>();
+        UICanvas = GameObject.FindGameObjectWithTag("UI");
     }
 
     void Update()
@@ -77,6 +79,9 @@ public class CardInteraction : MonoBehaviour
                 ChooseCard();
                 cardSelector.SelectRandomCards(2);
                 cardSelector.InstantiateCards(cardSelector.aiHand, false);
+            }
+            else if(cardColor == "wild") {
+                UICanvas.GetComponent<UIController>().colorButtonContainer.SetActive(true);
             }
             else if(cardSelector.isFirstMove == true || cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber) {
                 ChooseCard();

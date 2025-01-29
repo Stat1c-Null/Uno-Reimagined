@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Table
   - GameManager
+  - UI
   layers:
   - Default
   - TransparentFX

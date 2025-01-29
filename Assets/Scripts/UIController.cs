@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
     public int maxCardsPerTurn;
     public bool skipMove;
     private CardSelector cardSelector;
+    public GameObject colorButtonContainer;
     // Start is called before the first frame update
     void Start()
     {
