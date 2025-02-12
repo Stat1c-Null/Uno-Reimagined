@@ -63,6 +63,10 @@ public class AIController : MonoBehaviour
                             placeCardOnTable(card);
                             break;
                         }
+                        else if(lastPlacedSuperCard == "wild" && lastPlacedColor == cardColor) {
+                            placeCardOnTable(card);
+                            break;
+                        }
                         else { 
                             Debug.Log("I dont have a card");
                             //cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);

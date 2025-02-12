@@ -82,6 +82,7 @@ public class CardInteraction : MonoBehaviour
             }
             else if(cardColor == "wild") {
                 UICanvas.GetComponent<UIController>().colorButtonContainer.SetActive(true);
+                ChooseCard();
             }
             else if(cardSelector.isFirstMove == true || cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber) {
                 ChooseCard();
