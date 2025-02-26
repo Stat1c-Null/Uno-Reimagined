@@ -107,7 +107,6 @@ public class CardSelector : MonoBehaviour
             InstantiateCard(sprite, sprite.name);
         }
         
-
         hand.Add(sprite);
 
         //RepositionCards();

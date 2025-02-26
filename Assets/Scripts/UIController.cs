@@ -38,11 +38,11 @@ public class UIController : MonoBehaviour
         skipMove = cardSelector.isPlayerTurn;
         if (skipMove == true && maxCardsPerTurn == 0) {
             cardSelector.BurnCards();
-            maxCardsPerTurn = 3;
             cardSelector.isPlayerTurn = false;
         }else if (skipMove == false) { 
             cardSelector.isAiTurn = true;
             cardSelector.isPlayerTurn = false;
         }
+        maxCardsPerTurn = 3;
     }
 }
