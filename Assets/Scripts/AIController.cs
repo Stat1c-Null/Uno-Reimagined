@@ -57,7 +57,10 @@ public class AIController : MonoBehaviour
                     string[] extractCard = card.name.Split('_');
                     string cardColor = extractCard[0];
                     cardCount++;
-                    if(cardCount > handLength) {
+                    Debug.Log(cardCount);
+                    //Only pick card after looping through entire hand and making sure there are no cards that can be played
+                    if(cardCount >= handLength) {
+                        cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
                         break;
                     }
                     // Check if card has number in it

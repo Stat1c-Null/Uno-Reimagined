@@ -92,7 +92,7 @@ public class CardInteraction : MonoBehaviour
 
     private void ChooseCard()
     {
-        transform.position = tablePosition + new Vector3(2, 3, -1);
+        //transform.position = tablePosition + new Vector3(2, 3, -1);
         cardSelector.PlaceCard(gameObject.name, cardSelector.playerHand);
         cardSelector.isPlayerTurn = false;
         foreach (Transform child in table.transform)
@@ -100,6 +100,7 @@ public class CardInteraction : MonoBehaviour
             Destroy(child.gameObject);
         }
         gameObject.transform.SetParent(table.transform);
-        
+        gameObject.transform.position = table.transform.position;
+        cardSelector.RepositionCards();
     }
 }
