@@ -113,7 +113,7 @@ public class CardSelector : MonoBehaviour
     }
 
     //Burn random 5 cards
-    public void BurnCards () {
+    public void BurnCards (List<Texture2D> hand) {
         for(int i = 0; i < 4;i++) {
             int steve = Random.Range(0, playerHand.Count);
             

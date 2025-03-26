@@ -17,6 +17,7 @@ public class AIController : MonoBehaviour
     private CardSelector cardSelector;
     private int cardCount = 0;
     private int handLength;
+    private int cardsGrabbed;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,12 @@ public class AIController : MonoBehaviour
     {
         if(cardSelector.isPlayerTurn) {
             lastPlacedSuperCard = "";
+            cardsGrabbed = 0;
+        }
+        if(cardsGrabbed == 3) {
+            cardSelector.isPlayerTurn = true;
+            cardSelector.isAiTurn = false;
+            
         }
         if(cardSelector.isAiTurn) {
             //Save how much cards ai has at the moment
@@ -39,15 +46,18 @@ public class AIController : MonoBehaviour
             lastPlacedCard = cardSelector.lastPlacedCard;
             string[] extract = lastPlacedCard.Split('_');
             lastPlacedColor = extract[0];
+
             //If the last card ends up being wild, grab updated color from card selector
             if(lastPlacedColor == "wild"){
                 lastPlacedColor = cardSelector.currentColor;
             }
+
             try {
                 lastPlacedNumber = int.Parse(extract[1]);
             } catch (Exception ex) { //In case second word in card name is a string
                 lastPlacedSuperCard = extract[1];
             }
+
             //TODO: Rework this logic for multiple players
             if(lastPlacedSuperCard == "skip" || lastPlacedSuperCard == "reverse") {
                 cardSelector.isPlayerTurn = true;
@@ -59,7 +69,8 @@ public class AIController : MonoBehaviour
                     cardCount++;
                     Debug.Log(cardCount);
                     //Only pick card after looping through entire hand and making sure there are no cards that can be played
-                    if(cardCount >= handLength) {
+                    if(cardCount >= handLength && cardsGrabbed <= 3) {
+                        cardsGrabbed += 1;
                         cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
                         break;
                     }

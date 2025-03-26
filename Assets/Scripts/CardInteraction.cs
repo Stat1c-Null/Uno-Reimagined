@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class CardInteraction : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class CardInteraction : MonoBehaviour
     private CardSelector cardSelector;
     private string cardNumber;
     private GameObject UICanvas;
+    private int playerCardNumber;
+    private int enemyCardNumber;
 
     void Start()
     {
@@ -73,6 +76,13 @@ public class CardInteraction : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
+        //Try converting cards into integers so we can compare if player is using card with higher number than previously played card
+        try{
+            playerCardNumber = int.Parse(cardNumber);
+            enemyCardNumber = int.Parse(cardSelector.lastCardNumber);
+        } catch(FormatException ex) {
+            Debug.Log(ex.ToString());
+        }
         if(playerMove && transform.parent.name != "CardTable") {
             //check for picker card
             if((cardNumber == "picker" && (cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber)) || (cardNumber == "picker" && cardSelector.isFirstMove == true)){
@@ -84,7 +94,7 @@ public class CardInteraction : MonoBehaviour
                 UICanvas.GetComponent<UIController>().colorButtonContainer.SetActive(true);
                 ChooseCard();
             }
-            else if(cardSelector.isFirstMove == true || cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber) {
+            else if(cardSelector.isFirstMove == true || (cardColor == cardSelector.currentColor && playerCardNumber > enemyCardNumber) || cardNumber == cardSelector.lastCardNumber) {
                 ChooseCard();
             }
         }
