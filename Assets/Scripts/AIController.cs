@@ -34,10 +34,12 @@ public class AIController : MonoBehaviour
             lastPlacedSuperCard = "";
             cardsGrabbed = 0;
         }
+        //Limit card grabbing to 3
         if(cardsGrabbed == 3) {
             cardSelector.isPlayerTurn = true;
             cardSelector.isAiTurn = false;
-            
+            cardSelector.BurnCards(aiHand);
+            Debug.Log("SkyNet is burning the cards");
         }
         if(cardSelector.isAiTurn) {
             //Save how much cards ai has at the moment
@@ -47,62 +49,66 @@ public class AIController : MonoBehaviour
             string[] extract = lastPlacedCard.Split('_');
             lastPlacedColor = extract[0];
 
-            //If the last card ends up being wild, grab updated color from card selector
-            if(lastPlacedColor == "wild"){
-                lastPlacedColor = cardSelector.currentColor;
-            }
-
-            try {
-                lastPlacedNumber = int.Parse(extract[1]);
-            } catch (Exception ex) { //In case second word in card name is a string
-                lastPlacedSuperCard = extract[1];
-            }
-
-            //TODO: Rework this logic for multiple players
-            if(lastPlacedSuperCard == "skip" || lastPlacedSuperCard == "reverse") {
-                cardSelector.isPlayerTurn = true;
-                cardSelector.isAiTurn = false;
+            //Check if player skipped first move
+            if(lastPlacedCard == "") {
+                placeCardOnTable(aiHand[0]);
             } else {
-                foreach(Texture2D card in aiHand) {
-                    string[] extractCard = card.name.Split('_');
-                    string cardColor = extractCard[0];
-                    cardCount++;
-                    Debug.Log(cardCount);
-                    //Only pick card after looping through entire hand and making sure there are no cards that can be played
-                    if(cardCount >= handLength && cardsGrabbed <= 3) {
-                        cardsGrabbed += 1;
-                        cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
-                        break;
-                    }
-                    // Check if card has number in it
-                    if(int.TryParse(extractCard[1], out int cardNumber)) {
-                        //If it has number, check for higher number then the one on the table
-                        if(cardColor == lastPlacedColor && cardNumber > lastPlacedNumber) {
-                            placeCardOnTable(card);
-                            break;
-                        }
-                        else if(cardNumber == lastPlacedNumber && cardColor != lastPlacedColor) {
-                            placeCardOnTable(card);
-                            break;
-                        } 
-                        else if(lastPlacedSuperCard == "picker" && lastPlacedColor == cardColor) {
-                            placeCardOnTable(card);
-                            break;
-                        }
-                        else if(lastPlacedSuperCard == "wild" && lastPlacedColor == cardColor) {
-                            placeCardOnTable(card);
-                            break;
-                        }
-                        else { 
-                            Debug.Log("Not the right card");
-                            //cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
-                        }
+                //If the last card ends up being wild, grab updated color from card selector
+                if(lastPlacedColor == "wild"){
+                    lastPlacedColor = cardSelector.currentColor;
+                }
 
-                    } 
-                    else {
-                        Debug.Log("This is not an integer");
+                try {
+                    lastPlacedNumber = int.Parse(extract[1]);
+                } catch (Exception ex) { //In case second word in card name is a string
+                    lastPlacedSuperCard = extract[1];
+                }
+
+                //TODO: Rework this logic for multiple players
+                if(lastPlacedSuperCard == "skip" || lastPlacedSuperCard == "reverse") {
+                    cardSelector.isPlayerTurn = true;
+                    cardSelector.isAiTurn = false;
+                } else {
+                    foreach(Texture2D card in aiHand) {
+                        string[] extractCard = card.name.Split('_');
+                        string cardColor = extractCard[0];
+                        cardCount++;
+                        //Only pick card after looping through entire hand and making sure there are no cards that can be played
+                        if(cardCount >= handLength && cardsGrabbed <= 3) {
+                            cardsGrabbed += 1;
+                            cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
+                            break;
+                        }
+                        // Check if card has number in it
+                        if(int.TryParse(extractCard[1], out int cardNumber)) {
+                            //If it has number, check for higher number then the one on the table
+                            if(cardColor == lastPlacedColor && cardNumber > lastPlacedNumber) {
+                                placeCardOnTable(card);
+                                break;
+                            }
+                            else if(cardNumber == lastPlacedNumber && cardColor != lastPlacedColor) {
+                                placeCardOnTable(card);
+                                break;
+                            }
+                            else if(lastPlacedSuperCard == "picker" && lastPlacedColor == cardColor) {
+                                placeCardOnTable(card);
+                                break;
+                            }
+                            else if(lastPlacedSuperCard == "wild" && lastPlacedColor == cardColor) {
+                                placeCardOnTable(card);
+                                break;
+                            }
+                            else { 
+                                //Debug.Log("Not the right card");
+                                //cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
+                            }
+
+                        } 
+                        else {
+                            //Debug.Log("This is not an integer");
+                        }
+                        //int cardNumber = int.Parse(extractCard[1]);
                     }
-                    //int cardNumber = int.Parse(extractCard[1]);
                 }
             }
         }
@@ -110,6 +116,7 @@ public class AIController : MonoBehaviour
 
     public void placeCardOnTable(Texture2D card) {
         cardSelector.PlaceCard(card.name, aiHand);//Place ai card on table
+        Debug.Log("CARD PLAYED BY AI: " + card.name);
         cardSelector.isAiTurn = false;
         cardSelector.isPlayerTurn = true;
         //Create ai card on the screen

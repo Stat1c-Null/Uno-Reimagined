@@ -115,12 +115,11 @@ public class CardSelector : MonoBehaviour
     //Burn random 5 cards
     public void BurnCards (List<Texture2D> hand) {
         for(int i = 0; i < 4;i++) {
-            int steve = Random.Range(0, playerHand.Count);
-            
-            Transform cardToDelete = cardHolder.transform.Find(playerHand[steve].name);
+            int steve = Random.Range(0, hand.Count);
+            Transform cardToDelete = cardHolder.transform.Find(hand[steve].name);
             Destroy(cardToDelete.gameObject);
 
-            playerHand.RemoveAt(steve);
+            hand.RemoveAt(steve);
         }
 
         RepositionCards();
