@@ -37,7 +37,7 @@ public class UIController : MonoBehaviour
     public void EndTurn() {
         skipMove = cardSelector.isPlayerTurn;
         if (skipMove == true && maxCardsPerTurn == 0) {
-            cardSelector.BurnCards(cardSelector.playerHand);
+            cardSelector.BurnCards(cardSelector.playerHand, true);
             cardSelector.isPlayerTurn = false;
             cardSelector.isAiTurn = true;
         }else if (skipMove == false) { 

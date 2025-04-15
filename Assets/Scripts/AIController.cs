@@ -38,7 +38,7 @@ public class AIController : MonoBehaviour
         if(cardsGrabbed == 3) {
             cardSelector.isPlayerTurn = true;
             cardSelector.isAiTurn = false;
-            cardSelector.BurnCards(aiHand);
+            cardSelector.BurnCards(aiHand, false);
             Debug.Log("SkyNet is burning the cards");
         }
         if(cardSelector.isAiTurn) {

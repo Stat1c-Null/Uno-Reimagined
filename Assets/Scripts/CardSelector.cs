@@ -113,7 +113,7 @@ public class CardSelector : MonoBehaviour
     }
 
     //Burn random 5 cards
-    public void BurnCards (List<Texture2D> hand) {
+    public void BurnCards (List<Texture2D> hand, bool isPlayer) {
         for(int i = 0; i < 4;i++) {
             int steve = Random.Range(0, hand.Count);
             Transform cardToDelete = cardHolder.transform.Find(hand[steve].name);
@@ -121,8 +121,10 @@ public class CardSelector : MonoBehaviour
 
             hand.RemoveAt(steve);
         }
-
-        RepositionCards();
+        if(isPlayer) {
+            RepositionCards();
+        }
+        
     }
 
     public void RepositionCards()
@@ -136,6 +138,9 @@ public class CardSelector : MonoBehaviour
         }
 
         cardHolder.transform.position = ogPosition;
+        Transform lastCard = cardHolder.transform.GetChild(cardHolder.transform.childCount - 1);
+        Debug.Log(ogPosition);
+        xPos = lastCard.position.x;
     }
 
     public void PlaceCard(string cardName, List<Texture2D> cardList) {
