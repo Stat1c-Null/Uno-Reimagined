@@ -24,6 +24,8 @@ public class CardSelector : MonoBehaviour
 
     public bool isFirstMove;
     public string lastCardNumber;
+
+    private Vector3 deckStartPosition;
     //Basically GameManager script
     void Start()
     {
@@ -43,6 +45,10 @@ public class CardSelector : MonoBehaviour
         isAiTurn = false;
         currentColor = string.Empty;
         isFirstMove = true;
+
+        string firstCardName = playerHand[0].name;
+        Transform firstCard = cardHolder.transform.Find(firstCardName);
+        deckStartPosition = firstCard.position;
     }
 
     public void SelectRandomCards(int count)
@@ -129,10 +135,17 @@ public class CardSelector : MonoBehaviour
 
     public void RepositionCards()
     {
-        for (int i = 0; i < playerHand.Count; i++)
+        Debug.Log(playerHand);
+        //Place first card on fixed position
+        string firstCardName = playerHand[0].name;
+        Transform firstCard = cardHolder.transform.Find(firstCardName);
+        firstCard.position = deckStartPosition;
+        firstCard.GetComponent<CardInteraction>().originalPosition = deckStartPosition;
+
+        for (int i = 1; i < playerHand.Count; i++)
         {
             Transform card = cardHolder.transform.Find(playerHand[i].name);
-            Vector3 newPosition = new Vector3(i * spacing, card.position.y, card.position.z);
+            Vector3 newPosition = new Vector3(firstCard.position.x + i * spacing, card.position.y, card.position.z);
             card.GetComponent<CardInteraction>().originalPosition = newPosition;
             card.position = newPosition;
         }
