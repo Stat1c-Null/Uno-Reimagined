@@ -103,6 +103,16 @@ public class AIController : MonoBehaviour
                                 //cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
                             }
 
+                        }
+                        else if(lastPlacedNumber == 9 && lastPlacedColor == cardColor) {
+                            //TODO: Create function for reverse and skip
+                            if (extract[1] == "skip" || extract[1] == "reverse") 
+                            {
+                                cardSelector.isPlayerTurn = false;
+                                cardSelector.isAiTurn = true;
+                            }
+                            placeCardOnTable(card);
+                            break;
                         } 
                         else {
                             //Debug.Log("This is not an integer");

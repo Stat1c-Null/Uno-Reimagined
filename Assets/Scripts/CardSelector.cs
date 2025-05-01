@@ -86,7 +86,7 @@ public class CardSelector : MonoBehaviour
         }
         
         instance.transform.position = new Vector3(xPos, yPos, 0);
-        xPos += 4f;
+        xPos += spacing;
 
         return instance;
     }
@@ -152,8 +152,9 @@ public class CardSelector : MonoBehaviour
 
         cardHolder.transform.position = ogPosition;
         Transform lastCard = cardHolder.transform.GetChild(cardHolder.transform.childCount - 1);
-        Debug.Log(ogPosition);
+        
         xPos = lastCard.position.x;
+        Debug.Log("XPosition: " + xPos);
     }
 
     public void PlaceCard(string cardName, List<Texture2D> cardList) {

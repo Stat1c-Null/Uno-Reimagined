@@ -97,6 +97,9 @@ public class CardInteraction : MonoBehaviour
             else if(cardSelector.isFirstMove == true || (cardColor == cardSelector.currentColor && playerCardNumber > enemyCardNumber) || cardNumber == cardSelector.lastCardNumber) {
                 ChooseCard();
             }
+            else if(cardColor == cardSelector.currentColor && (playerCardNumber == 1 || playerCardNumber == 0) && enemyCardNumber == 9) {
+                ChooseCard();
+            }
         }
     }
 
