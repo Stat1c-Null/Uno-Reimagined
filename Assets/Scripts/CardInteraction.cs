@@ -83,6 +83,7 @@ public class CardInteraction : MonoBehaviour
         } catch(FormatException ex) {
             Debug.Log(ex.ToString());
         }
+        
         if(playerMove && transform.parent.name != "CardTable") {
             //check for picker card
             if((cardNumber == "picker" && (cardColor == cardSelector.currentColor || cardNumber == cardSelector.lastCardNumber)) || (cardNumber == "picker" && cardSelector.isFirstMove == true)){
@@ -92,6 +93,18 @@ public class CardInteraction : MonoBehaviour
             }
             else if(cardColor == "wild") {
                 UICanvas.GetComponent<UIController>().colorButtonContainer.SetActive(true);
+
+                //if wild card a +4 pick card, then give enemy +4 cards
+                string[] extractCard = gameObject.name.Split('_');
+                string wildCardType = extractCard[2];
+                if (wildCardType == "pick"){
+                    cardSelector.SelectRandomCards(4);
+                    cardSelector.InstantiateCards(cardSelector.aiHand, false);
+                }
+
+                ChooseCard();
+            }
+            else if((cardNumber == "skip" || cardNumber == "reverse") && cardColor == cardSelector.currentColor) {
                 ChooseCard();
             }
             else if(cardSelector.isFirstMove == true || (cardColor == cardSelector.currentColor && playerCardNumber > enemyCardNumber) || cardNumber == cardSelector.lastCardNumber) {

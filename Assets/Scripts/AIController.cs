@@ -73,7 +73,7 @@ public class AIController : MonoBehaviour
                         string[] extractCard = card.name.Split('_');
                         string cardColor = extractCard[0];
                         cardCount++;
-                        //Only pick card after looping through entire hand and making sure there are no cards that can be played
+                        //*Only pick card after looping through entire hand and making sure there are no cards that can be played
                         if(cardCount >= handLength && cardsGrabbed <= 3) {
                             cardsGrabbed += 1;
                             cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
@@ -104,7 +104,7 @@ public class AIController : MonoBehaviour
                             }
 
                         }
-                        else if(lastPlacedNumber == 9 && lastPlacedColor == cardColor) {
+                        else if(lastPlacedColor == cardColor) {
                             //TODO: Create function for reverse and skip
                             if (extract[1] == "skip" || extract[1] == "reverse") 
                             {
