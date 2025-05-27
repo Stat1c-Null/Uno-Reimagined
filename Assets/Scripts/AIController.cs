@@ -82,23 +82,34 @@ public class AIController : MonoBehaviour
                         // Check if card has number in it
                         if(int.TryParse(extractCard[1], out int cardNumber)) {
                             //If it has number, check for higher number then the one on the table
-                            if(cardColor == lastPlacedColor && cardNumber > lastPlacedNumber) {
+                            if (cardColor == lastPlacedColor && cardNumber > lastPlacedNumber)
+                            {
                                 placeCardOnTable(card);
                                 break;
                             }
-                            else if(cardNumber == lastPlacedNumber && cardColor != lastPlacedColor) {
+                            //If AI has card number 0 or 1, it can beat a 9
+                            else if (cardColor == lastPlacedColor && lastPlacedNumber == 9 && (cardNumber == 1 || cardNumber == 0))
+                            {
                                 placeCardOnTable(card);
                                 break;
                             }
-                            else if(lastPlacedSuperCard == "picker" && lastPlacedColor == cardColor) {
+                            else if (cardNumber == lastPlacedNumber && cardColor != lastPlacedColor)
+                            {
                                 placeCardOnTable(card);
                                 break;
                             }
-                            else if(lastPlacedSuperCard == "wild" && lastPlacedColor == cardColor) {
+                            else if (lastPlacedSuperCard == "picker" && lastPlacedColor == cardColor)
+                            {
                                 placeCardOnTable(card);
                                 break;
                             }
-                            else { 
+                            else if (lastPlacedSuperCard == "wild" && lastPlacedColor == cardColor)
+                            {
+                                placeCardOnTable(card);
+                                break;
+                            }
+                            else
+                            {
                                 //Debug.Log("Not the right card");
                                 //cardSelector.DrawCardFromDeck(cardSelector.aiHand, false);
                             }

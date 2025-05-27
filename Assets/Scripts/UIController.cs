@@ -27,8 +27,29 @@ public class UIController : MonoBehaviour
         
     }
 
-    public void DrawCard(){
-        if(cardSelector.isPlayerTurn && maxCardsPerTurn > 0) {
+    public void RefreshHand()
+    {
+        //Delete current hand for player and AI
+        cardSelector.playerHand.Clear();
+        cardSelector.aiHand.Clear();
+        foreach (Transform child in cardSelector.cardHolder.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        cardSelector.xPos = 0f;
+        //Repopulate hand with new cards
+        cardSelector.SelectRandomCards(7);
+        cardSelector.InstantiateCards(cardSelector.playerHand, true);
+        cardSelector.SelectRandomCards(7);
+        cardSelector.InstantiateCards(cardSelector.aiHand, false);
+
+        
+    }
+
+    public void DrawCard()
+    {
+        if (cardSelector.isPlayerTurn && maxCardsPerTurn > 0)
+        {
             cardSelector.DrawCardFromDeck(cardSelector.playerHand, true);
             maxCardsPerTurn -= 1;
         }
