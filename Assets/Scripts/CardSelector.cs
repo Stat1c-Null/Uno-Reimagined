@@ -26,6 +26,8 @@ public class CardSelector : MonoBehaviour
     public string lastCardNumber;
 
     private Vector3 deckStartPosition;
+
+    public string lastPlayer;
     //Basically GameManager script
     void Start()
     {
@@ -49,6 +51,11 @@ public class CardSelector : MonoBehaviour
         string firstCardName = playerHand[0].name;
         Transform firstCard = cardHolder.transform.Find(firstCardName);
         deckStartPosition = firstCard.position;
+    }
+
+    void Update()
+    {
+        
     }
 
     public void SelectRandomCards(int count)

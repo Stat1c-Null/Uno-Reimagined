@@ -9,6 +9,7 @@ public class AIController : MonoBehaviour
     public GameObject GameManager;
     private List<Texture2D> aiHand = new List<Texture2D>();
     private string lastPlacedCard;
+    [SerializeField]
     private string lastPlacedSuperCard;
     private string lastPlacedColor;
     private int lastPlacedNumber;
@@ -66,6 +67,8 @@ public class AIController : MonoBehaviour
 
                 //TODO: Rework this logic for multiple players
                 if(lastPlacedSuperCard == "skip" || lastPlacedSuperCard == "reverse") {
+                    //TODO: FIX THE BUG RIGHT HERE
+                    Debug.Log("Setting player turn to true if they played skip or reverse");
                     cardSelector.isPlayerTurn = true;
                     cardSelector.isAiTurn = false;
                 } else {
@@ -117,11 +120,8 @@ public class AIController : MonoBehaviour
                         }
                         else if(lastPlacedColor == cardColor) {
                             //TODO: Create function for reverse and skip
-                            if (extract[1] == "skip" || extract[1] == "reverse") 
-                            {
-                                cardSelector.isPlayerTurn = false;
-                                cardSelector.isAiTurn = true;
-                            }
+                            Debug.Log("AI Played supercard");
+                            lastPlacedSuperCard = extractCard[1];
                             placeCardOnTable(card);
                             break;
                         } 
@@ -138,8 +138,22 @@ public class AIController : MonoBehaviour
     public void placeCardOnTable(Texture2D card) {
         cardSelector.PlaceCard(card.name, aiHand);//Place ai card on table
         Debug.Log("CARD PLAYED BY AI: " + card.name);
-        cardSelector.isAiTurn = false;
-        cardSelector.isPlayerTurn = true;
+
+        //Check if card placed by AI is skip or reverse
+        if (lastPlacedSuperCard == "skip" || lastPlacedSuperCard == "reverse")
+        {
+            Debug.Log("Skip card was played");
+            cardSelector.isPlayerTurn = false;
+            cardSelector.isAiTurn = true;
+            lastPlacedSuperCard = "";
+        }
+        else
+        {
+            Debug.Log("Changing to player turn");
+            cardSelector.isAiTurn = false;
+            cardSelector.isPlayerTurn = true;
+        }
+        
         //Create ai card on the screen
         GameObject aiCard = cardSelector.InstantiateCard(card, card.name);
         aiCard.transform.position = tablePosition + new Vector3(2, 3, -1);
