@@ -27,7 +27,10 @@ public class CardSelector : MonoBehaviour
 
     private Vector3 deckStartPosition;
 
-    public string lastPlayer;
+    public int numPlayers;
+
+    public string[] listOfPlayers;
+    public int playerIndex = 0;
     //Basically GameManager script
     void Start()
     {
@@ -51,11 +54,21 @@ public class CardSelector : MonoBehaviour
         string firstCardName = playerHand[0].name;
         Transform firstCard = cardHolder.transform.Find(firstCardName);
         deckStartPosition = firstCard.position;
+
+        //Create a list of players
+        listOfPlayers = new string[numPlayers];
+
+        listOfPlayers[0] = "Player";
+        listOfPlayers[1] = "AI";
     }
 
     void Update()
     {
-        
+        //Reset player index if its greater than number of players
+        if (playerIndex > numPlayers - 1)
+        {
+            playerIndex = 0;
+        }
     }
 
     public void SelectRandomCards(int count)

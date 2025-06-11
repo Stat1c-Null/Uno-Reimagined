@@ -68,6 +68,7 @@ public class AIController : MonoBehaviour
                 //TODO: Rework this logic for multiple players
                 if(lastPlacedSuperCard == "skip" || lastPlacedSuperCard == "reverse") {
                     //TODO: FIX THE BUG RIGHT HERE
+                    //GENIUS SOLUTION: save all the players into array, and replace AITurn variable with playerIndex variable. Every time turn is played, index increases, switching to next player. 
                     Debug.Log("Setting player turn to true if they played skip or reverse");
                     cardSelector.isPlayerTurn = true;
                     cardSelector.isAiTurn = false;

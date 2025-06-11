@@ -347,6 +347,8 @@ MonoBehaviour:
   currentColor: 
   isFirstMove: 0
   lastCardNumber: 
+  numPlayers: 0
+  listOfPlayers: []
 --- !u!4 &96302034
 Transform:
   m_ObjectHideFlags: 0
@@ -963,6 +965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 558513049}
   - component: {fileID: 558513048}
+  - component: {fileID: 558513050}
   m_Layer: 0
   m_Name: AIOponnent
   m_TagString: Untagged
@@ -983,6 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 96302032}
+  lastPlacedSuperCard: 
 --- !u!4 &558513049
 Transform:
   m_ObjectHideFlags: 0
@@ -998,6 +1002,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &558513050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558513047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca123d8a6b0bcc4d97a9b7c96c68f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: AI
 --- !u!1 &602383033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,8 +1466,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516002997}
+  - component: {fileID: 1516002998}
   m_Layer: 0
-  m_Name: CardHolder
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1471,6 +1489,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1516002998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516002996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca123d8a6b0bcc4d97a9b7c96c68f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
 --- !u!1 &1653346709
 GameObject:
   m_ObjectHideFlags: 0
