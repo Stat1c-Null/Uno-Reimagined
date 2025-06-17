@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
     Image YellowButton;
     Image GreenButton;
     Image BlueButton;
+
+    public Player player;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +50,8 @@ public class UIController : MonoBehaviour
 
     public void DrawCard()
     {
-        if (cardSelector.isPlayerTurn && maxCardsPerTurn > 0)
+        Debug.Log(player.playerName);
+        if (cardSelector.listOfPlayers[cardSelector.playerIndex] == player.playerName && maxCardsPerTurn > 0)
         {
             cardSelector.DrawCardFromDeck(cardSelector.playerHand, true);
             maxCardsPerTurn -= 1;
@@ -56,14 +59,11 @@ public class UIController : MonoBehaviour
     }
 
     public void EndTurn() {
-        skipMove = cardSelector.isPlayerTurn;
+        //If player doesnt have a card to play, they will press end turn and we will burn their card
+        skipMove = cardSelector.listOfPlayers[cardSelector.playerIndex] == player.playerName;
         if (skipMove == true && maxCardsPerTurn == 0) {
             cardSelector.BurnCards(cardSelector.playerHand, true);
-            cardSelector.isPlayerTurn = false;
-            cardSelector.isAiTurn = true;
-        }else if (skipMove == false) { 
-            cardSelector.isAiTurn = true;
-            cardSelector.isPlayerTurn = false;
+            cardSelector.playerIndex++;
         }
         maxCardsPerTurn = 3;
     }

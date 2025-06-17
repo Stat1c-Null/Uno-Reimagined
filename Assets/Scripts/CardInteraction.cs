@@ -22,6 +22,7 @@ public class CardInteraction : MonoBehaviour
     private GameObject UICanvas;
     private int playerCardNumber;
     private int enemyCardNumber;
+    public Player player;
 
     void Start()
     {
@@ -34,11 +35,12 @@ public class CardInteraction : MonoBehaviour
         cardNumber = extractCard[1];
         cardSelector = GameManager.GetComponent<CardSelector>();
         UICanvas = GameObject.FindGameObjectWithTag("UI");
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     void Update()
     {
-        playerMove = cardSelector.isPlayerTurn;
+        playerMove = cardSelector.listOfPlayers[cardSelector.playerIndex] == player.playerName;
         if (isHovered && playerMove)
         {
             // Make the sprite float up and down
@@ -120,7 +122,7 @@ public class CardInteraction : MonoBehaviour
     {
         //transform.position = tablePosition + new Vector3(2, 3, -1);
         cardSelector.PlaceCard(gameObject.name, cardSelector.playerHand);
-        cardSelector.isPlayerTurn = false;
+        cardSelector.playerIndex++;
         foreach (Transform child in table.transform)
         {
             Destroy(child.gameObject);

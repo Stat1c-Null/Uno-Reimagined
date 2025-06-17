@@ -347,8 +347,9 @@ MonoBehaviour:
   currentColor: 
   isFirstMove: 0
   lastCardNumber: 
-  numPlayers: 0
+  numPlayers: 2
   listOfPlayers: []
+  playerIndex: 0
 --- !u!4 &96302034
 Transform:
   m_ObjectHideFlags: 0
@@ -380,6 +381,7 @@ MonoBehaviour:
   maxCardsPerTurn: 0
   skipMove: 0
   colorButtonContainer: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &162460639
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,6 +729,7 @@ MonoBehaviour:
   maxCardsPerTurn: 3
   skipMove: 0
   colorButtonContainer: {fileID: 74025869}
+  player: {fileID: 1516002998}
 --- !u!1 &472294306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,7 +1472,7 @@ GameObject:
   - component: {fileID: 1516002998}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
